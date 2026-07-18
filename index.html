@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticket Information</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    color: #1a1a2e;
+    margin: 0;
+    padding: 40px 5%;
+  }
+
+  .container {
+    max-width: 1600px;
+    margin: 0;
+  }
+
+  h1.title {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .ticket-row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 14px 0;
+    font-size: 16px;
+  }
+
+  .ticket-label {
+    width: 160px;
+    min-width: 140px;
+    font-weight: 700;
+    color: #0d0d1a;
+  }
+
+  .ticket-value {
+    color: #33334d;
+    flex: 1;
+  }
+
+  .status-valid {
+    color: #1f9d55;
+    font-weight: 600;
+  }
+
+  .status-invalid {
+    color: #d1453b;
+    font-weight: 600;
+  }
+
+  hr.divider {
+    margin-top: 50px;
+    border: none;
+    border-top: 1px solid #eaeaea;
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 24px 5%;
+    }
+
+    h1.title {
+      font-size: 22px;
+    }
+
+    .ticket-row {
+      padding: 10px 0;
+      font-size: 13px;
+    }
+
+    .ticket-label {
+      width: 90px;
+      min-width: 80px;
+    }
+
+    .ticket-value {
+      font-size: 13px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="title">Ticket Information</h1>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Event</div>
+    <div class="ticket-value" id="event">Silver Ticket</div>
+  </div>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Location</div>
+    <div class="ticket-value" id="location">St. Jakobshalle Basel, St. Jakobs-Strasse 390, 4052 Basel, 4052 Basel, Switzerland (Tribune seating)</div>
+  </div>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Date</div>
+    <div class="ticket-value" id="date">14.09.2026 19:00 - 16.09.2026 19:00, Europe/Zurich</div>
+  </div>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Option</div>
+    <div class="ticket-value" id="option">One-time</div>
+  </div>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Full name</div>
+    <div class="ticket-value" id="fullname">Abdul Kabir</div>
+  </div>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Email</div>
+    <div class="ticket-value" id="email">abdulkabeer1126@gmail.com</div>
+  </div>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Address</div>
+    <div class="ticket-value" id="address">Jeddah, Saudi Arabia</div>
+  </div>
+
+  <div class="ticket-row">
+    <div class="ticket-label">Status</div>
+    <div class="ticket-value status-valid" id="status">VALID</div>
+  </div>
+
+  <hr class="divider">
+</div>
+
+<script>
+  // OPTIONAL: If you want each QR code to show different ticket data,
+  // you can pass values in the URL like:
+  // ticket.html?event=Seminar&fullname=Rohit%20Kumar&status=VALID
+  //
+  // This script reads those URL parameters and fills them in automatically.
+  // If no parameters are given, it just keeps the placeholder text above.
+
+  const params = new URLSearchParams(window.location.search);
+
+  function setIfExists(id, param) {
+    if (params.has(param)) {
+      document.getElementById(id).textContent = params.get(param);
+    }
+  }
+
+  setIfExists('event', 'event');
+  setIfExists('location', 'location');
+  setIfExists('date', 'date');
+  setIfExists('option', 'option');
+  setIfExists('fullname', 'fullname');
+  setIfExists('email', 'email');
+  setIfExists('address', 'address');
+
+  if (params.has('status')) {
+    const statusEl = document.getElementById('status');
+    const statusVal = params.get('status').toUpperCase();
+    statusEl.textContent = statusVal;
+    statusEl.className = 'ticket-value ' + (statusVal === 'VALID' ? 'status-valid' : 'status-invalid');
+  }
+</script>
+
+</body>
+</html>
